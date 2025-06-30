@@ -17,7 +17,18 @@ This guide provides a complete walkthrough to deploy an **OpenShift Container Pl
 * Properly synchronized NTP
 * vSphere credentials with VM, disk, and network permissions
 
-### IP Addressing and Temporary DNS Setup
+### IP Addressing, hostname, and DNS Setup
+```bash
+hostnamectl set-hostname bastian.ipicluster.tayabtahir.com
+exec bash
+```
+Verify ip address and resolve.conf file.
+```bash
+ip -br -c a
+cat /etc/resolve.conf
+```
+
+![basic configs](Images/1.gif)
 
 Install and configure `dnsmasq` for DNS and DHCP:
 
@@ -57,6 +68,8 @@ Restart the service:
 ```bash
 systemctl restart dnsmasq
 ```
+![DNS setup](Images/2.gif)
+
 
 Set the bastion host's DNS to its own IP:
 
@@ -65,6 +78,7 @@ nmcli connection modify ens33 ipv4.dns 192.168.12.10
 nmcli connection down ens33 && nmcli connection up ens33
 cat /etc/resolv.conf
 ```
+![DNS IP changes](Images/3.gif)
 
 ---
 
@@ -88,6 +102,8 @@ cp openshift-install /usr/local/bin/
 openshift-install version
 oc version
 ```
+
+![Tools installation](Images/4.gif)
 
 ---
 
@@ -135,6 +151,11 @@ machineNetwork:
   - cidr: 192.168.12.0/24
 ```
 
+
+https://github.com/user-attachments/assets/d921f950-e9c1-4d52-8d34-c69d08f14bbe
+
+
+
 ---
 
 ## 🏗️ Step 3: Deploy the Cluster
@@ -152,6 +173,14 @@ This will:
 
 > 🕒 Takes \~30–60 minutes based on your resources.
 
+
+https://github.com/user-attachments/assets/1293df36-2d81-49b0-9929-9c383001e6a7
+
+You can verify from vSphere that VMs have been created there.
+![Cluster Creation Started](Images/7.gif)
+
+
+
 ---
 
 ## 🔎 Step 4: Verify the Cluster
@@ -168,6 +197,8 @@ Check cluster status:
 oc get nodes
 oc get co  # View cluster operators
 ```
+
+![cluster verification](Images/9.gif)
 
 ---
 
