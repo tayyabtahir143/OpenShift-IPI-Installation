@@ -177,7 +177,7 @@ This will:
 https://github.com/user-attachments/assets/1293df36-2d81-49b0-9929-9c383001e6a7
 
 You can verify from vSphere that VMs have been created there.
-![Cluster Creation Started](Images/7.gif)
+<img src="Images/7.png" width="600"/>
 
 
 
